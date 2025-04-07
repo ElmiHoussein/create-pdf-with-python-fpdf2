@@ -1,0 +1,66 @@
+from fpdf import FPDF
+
+# Création d'un nouveau PDF
+pdf = FPDF()
+pdf.add_page()
+pdf.set_auto_page_break(auto=True, margin=15)
+
+# Titre
+pdf.set_font("Arial", 'B', 14)
+pdf.cell(0, 10, "Fiche Mémo : Règles des Tableaux de Vérité et Logique Booléenne", ln=True, align="C")
+pdf.ln(10)
+
+# Corps du document
+pdf.set_font("Arial", size=12)
+pdf.multi_cell(0, 10, """
+
+1. **Les Variables d'Entrée** :
+   - Les variables peuvent être 0 (faux) ou 1 (vrai). 
+   - Exemple avec 3 variables A, B et C : il y a 8 combinaisons possibles (0 ou 1 pour chaque variable).
+
+2. **Les Opérations Logiques** :
+   - **NON (¬)** : inverse la valeur (¬0 = 1, ¬1 = 0).
+   - **ET (·)** : Le résultat est 1 si les deux entrées sont 1, sinon c'est 0.
+   - **OU (+)** : Le résultat est 1 si au moins une entrée est 1.
+   - **OU Exclusif (⊕)** : Le résultat est 1 si les entrées sont différentes.
+   - **Parenthèses** : Priorité totale dans les expressions, comme en algèbre.
+
+3. **Évaluation des Tableaux de Vérité** :
+   - Pour chaque ligne, applique les opérations dans l'ordre des priorités : ¬ → · → + → ⊕.
+   - Remplis le tableau en fonction de chaque combinaison d'entrées et de l'opération effectuée.
+
+4. **Exemple d'Opération** : 
+   Pour la fonction : **f(A, B, C) = (A · ¬B) + (B · C)** :
+   - **Étape 1** : Calcule ¬B
+   - **Étape 2** : Calcule A · ¬B
+   - **Étape 3** : Calcule B · C
+   - **Étape 4** : Additionne les résultats de A · ¬B et B · C pour obtenir f
+
+5. **Tableau de Vérité Exemple** (fonction f(A, B, C) = (A · ¬B) + (B · C)) :
+
+| A | B | C | ¬B | A·¬B | B·C | f = A·¬B + B·C |
+|---|---|---|----|------|-----|----------------|
+| 0 | 0 | 0 |  1 |  0   |  0  | 0              |
+| 0 | 0 | 1 |  1 |  0   |  0  | 0              |
+| 0 | 1 | 0 |  0 |  0   |  0  | 0              |
+| 0 | 1 | 1 |  0 |  0   |  1  | 1              |
+| 1 | 0 | 0 |  1 |  1   |  0  | 1              |
+| 1 | 0 | 1 |  1 |  1   |  0  | 1              |
+| 1 | 1 | 0 |  0 |  0   |  0  | 0              |
+| 1 | 1 | 1 |  0 |  0   |  1  | 1              |
+
+6. **Rappel des Priorités** :
+   - **1. NON (¬)**
+   - **2. ET (·)**
+   - **3. OU (+)**
+   - **4. OU Exclusif (⊕)**
+
+Tu peux utiliser cette fiche pour calculer facilement des sorties à partir de fonctions booléennes.
+
+""")
+
+# Sauvegarde du PDF
+pdf_output_path = "/mnt/data/fiche_memo_tableaux_verdite.pdf"
+pdf.output(pdf_output_path)
+
+pdf_output_path
